@@ -9,6 +9,10 @@ angular.module("javarelatedApp", [])
 	$scope.chart.yAxis.tickFormat(d3.format(',f'));
 	$scope.chart.delay(0);
 	
+	nv.addGraph(function () {
+        return $scope.chart;
+    });
+	
 	nv.utils.windowResize($scope.chart.update);
 	
 	$scope.drawChart = function(poolName, interval) {
@@ -31,16 +35,10 @@ angular.module("javarelatedApp", [])
 		        	data[2].disabled = state.disabled[2];
 	        	}
 	        	
-	            nv.addGraph(function () {
-	
-	                d3.select('#realtimeGraph svg')
-	                    .datum(data)
-	                    .transition().duration(0)
-	                    .call($scope.chart)
-	                ;
-	
-	                return $scope.chart;
-	            });
+	        	d3.select('#realtimeGraph svg')
+                .datum(data)
+                .transition().duration(0)
+                .call($scope.chart);
 	
 	        }).error(function (data, status, headers, config) {
 	
